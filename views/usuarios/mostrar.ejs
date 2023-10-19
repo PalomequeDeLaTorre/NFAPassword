@@ -1,0 +1,47 @@
+<%- include ("../templates/encabezado")%>
+<%- include ("../templates/menu")%>
+<div class="container mt-5">
+    <div class="card" style="background-color: #333; border: 2px solid #3498db; border-radius: 15px; box-shadow: 0px 0px 15px #3498db;">
+        <div class="card-header" style="background-color: #3498db; color: #fff; border-radius: 10px 10px 0px 0px;">
+            <h1 style="font-size: 24px; padding: 15px;">Usuarios</h1>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>nombre</th>
+                        <th>usuario</th>
+                        <th>password</th>
+                        <th>foto</th>
+                        <th>Editar/Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% usuarios.forEach((usuario) => { %>
+                    <tr>
+                        <td><%= usuario.id %></td>
+                        <td><%= usuario.nombre %></td>
+                        <td><%= usuario.usuario %></td>
+                        <td>*****</td>
+                        <td><img src="/images/<%= usuario.foto %>" width="100px" alt=""></td>
+                        <td>
+                            <a href="/editar/<%= usuario.id %>">Editar</a>
+                            <a href="/borrar/<%= usuario.id %>">Borrar</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+    <div class="text-center mt-3">
+        <p style="color: #cccccc;"><a href="/" style="color: #3bff3b; text-decoration: none;">Cerrar Sesión</a></p>
+    </div>
+</div>
+<%- include ("../templates/pie")%>
+
+
+    
+

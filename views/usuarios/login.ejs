@@ -1,0 +1,27 @@
+<%- include ("../templates/encabezado")%>
+<%- include ("../templates/menu")%>
+<div class="container mt-5">
+    <form action="/login" method="post">
+        <div class="card" style="background-color: #333; border: 2px solid #3498db; border-radius: 15px; box-shadow: 0px 0px 15px #3498db;">
+            <div class="card-header" style="background-color: #3498db; color: #fff; border-radius: 10px 10px 0px 0px;">
+                <h1 style="font-size: 24px; padding: 15px;">Login</h1>
+            </div>
+            <div class="card-body">
+                <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-danger" style="background-color: #e74c3c; color: #fff; border: 1px solid #c0392b; border-radius: 5px; padding: 10px;">
+                    <%= error %>
+                </div>
+                <% } %>
+                <input class="form-control mb-3" type="text" name="usuario" id="usuario" placeholder="Usuario" autofocus style="background-color: #ffffff; color: #000000; border: 1px solid #3498db; border-radius: 5px;">
+                <input class="form-control mb-3" type="password" name="password" id="password" placeholder="Contraseña" style="background-color: #ffffff; color: #000000; border: 1px solid #3498db; border-radius: 5px;">
+            </div>
+            <div class="card-footer" style="background-color: #333; border-radius: 0px 0px 10px 10px;">
+                <button type="submit" class="form-control btn btn-primary" style="background-color: #3498db; color: #fff; border: none; border-radius: 5px; padding: 10px;">Iniciar sesión</button>
+            </div>
+        </div>
+    </form>
+    <div class="text-center mt-3">
+        <p style="color: #cccccc;">No tienes una cuenta? <a href="/nuevousuario" style="color: #3bff3b; text-decoration: none;">Regístrate</a></p>
+    </div>
+</div>
+<%- include ("../templates/pie")%>
