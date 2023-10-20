@@ -20,6 +20,12 @@ ruta.post('/login', async (req, res) => {
   }
 });
 
+ruta.get("/logout", (req,res)=>{ 
+  req.session=null;
+  res.redirect("/");
+
+});
+
 ruta.get("/mostrar",async(req,res)=>{
     var usuarios = await mostrarUsuarios();
     res.render("usuarios/mostrar",{usuarios});
@@ -44,7 +50,7 @@ ruta.get("/editar/:id",async(req, res)=>{
 
 });
 
-ruta.post("/editar",subirArchivo(), async (req, res) => { //Modificado
+ruta.post("/editar",subirArchivo(), async (req, res) => { 
   if(req.file!=undefined){
     req.body.foto=req.file.originalname;
   }

@@ -1,11 +1,13 @@
 var express=require("express");
 var cors=require("cors");
 var path=require("path");
+
 var rutasUsuarios=require("./rutas/usuariosRutas");
 var rutasProductos=require("./rutas/productosRutas");
 var rutasUsuariosApis=require("./rutas/usuariosRutasApis");
 var rutasProductosApis=require("./rutas/productosRutasApis");
 var session = require('express-session');
+//require("dotenv").config();
 
 var app=express();
 app.set("view engine", "ejs");
@@ -16,6 +18,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
 
 app.use("/", express.static(path.join(__dirname,"/web")));
 app.use("/",rutasUsuarios);

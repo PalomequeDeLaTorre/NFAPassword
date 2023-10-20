@@ -3,7 +3,7 @@ var {encriptarPassword}=require("../middlewares/funcionesPassword");
 var Usuario=require("../modelos/Usuario");
 const bcrypt = require('bcrypt');
 
-async function verificarCredenciales(usuario, password) { //Agregado
+async function verificarCredenciales(usuario, password) { 
     try {
         const querySnapshot = await conexion.where("usuario", "==", usuario).get();
         if (querySnapshot.empty) {
@@ -83,9 +83,9 @@ async function buscarPorID(id){
 }
 
 async function nuevoUsuario(datos){
-    var {hash, salt}=encriptarPassword(datos.password); //Agregado
-    datos.password=hash; //Agregado
-    datos.salt=salt; //Agregado
+    var {hash, salt}=encriptarPassword(datos.password); 
+    datos.password=hash; 
+    datos.salt=salt; 
     var user=new Usuario(null,datos);
     var error=1;
     if (user.bandera === 0){
@@ -106,21 +106,17 @@ async function nuevoUsuario(datos){
 }
 
 async function modificarUsuario(datos){
-    //console.log(datos.foto);
-    //console.log(datos.fotoVieja);
-    //console.log(datos.password);
-    //console.log(datos.passwordViejo);
     var error=1;
     var respuestaBuscar=await buscarPorID(datos.id);
     if(respuestaBuscar!=undefined){
-        if(datos.password==""){ //Agregado
-            datos.password=datos.passwordViejo; //Agregado
-            datos.salt=datos.saltViejo; //Agregado
+        if(datos.password==""){ 
+            datos.password=datos.passwordViejo; 
+            datos.salt=datos.saltViejo; 
         }
         else{
-            var {salt, hash}=encriptarPassword(datos.password); //Agregado
-            datos.password=hash; //Agregado
-            datos.salt=salt; //Agregado
+            var {salt, hash}=encriptarPassword(datos.password); 
+            datos.password=hash; 
+            datos.salt=salt; 
         }
     var user=new Usuario(datos.id,datos)
     if (user.bandera === 0){
