@@ -125,7 +125,11 @@ async function modificarUsuario(datos){
             datos.password=hash;
             datos.salt=salt;
         }
+
+        
         var user=new Usuario(datos.id,datos);
+
+
         if (user.bandera==0){
             try{
                 await conexion.doc(user.id).set(user.obtenerDatos);

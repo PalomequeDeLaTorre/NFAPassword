@@ -73,8 +73,15 @@ async function nuevoProducto(datos){
 async function modificarProducto(datos){
     var error=1;
     var respuestaBuscarProducto=await buscarProductoPorID(datos.id);
+    console.log(respuestaBuscarProducto);
     if(respuestaBuscarProducto!=undefined){
+        if (datos.foto=="algo"){
+            datos.foto=respuestaBuscarProducto.foto;
+        }
+
     var product=new Producto(datos.id,datos)
+
+
     if (product.bandera === 0){
         try{
             await conexion.doc(product.id).set(product.obtenerDatosP());
