@@ -57,7 +57,16 @@ else{
 });
 
 ruta.get("/api/borrarProductoApi/:id", async (req, res) => {
-    try {
+  var error=await borrarProducto(req.params.id);
+  if(error==0){
+      res.status(200).json("Prodcuto borrado");
+  }
+  else{
+      res.status(400).json("Error al borrar el producto")
+  }
+});
+
+    /*try {
       const producto = await buscarProductoPorID(req.params.id);
       if (!producto) {
         return res.status(404).json("Producto no encontrado");
@@ -73,7 +82,7 @@ ruta.get("/api/borrarProductoApi/:id", async (req, res) => {
       console.error('Error al borrar la foto o producto:', error);
       res.status(500).json("Error al borrar la foto o producto");
     }
-  });
+  });*/
   
 
 module.exports = ruta;

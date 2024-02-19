@@ -58,7 +58,7 @@ else{
 });
 
 ruta.get("/api/borrarUsuario/:id", async (req, res) => {
-  var error=await borrarUsario(req.params.id);
+  var error=await borrarUsuario(req.params.id);
   if(error==0){
       res.status(200).json("Usuario borrado");
   }
