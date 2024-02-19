@@ -13,6 +13,8 @@ ruta.get("/api/mostrarUsuarios",async(req,res)=>{
 });
 
 ruta.post("/api/nuevousuario",subirArchivo(),async(req, res)=>{
+    console.log("Servidor /api/nuevousuario");
+    console.log(req.body);
     req.body.foto=req.file.originalname;
     var error=await nuevoUsuario(req.body);
     if(error==0){
@@ -38,36 +40,21 @@ ruta.get("/api/buscarUsuarioPorId/:id",async(req, res)=>{
 });
 
 ruta.post("/api/editarUsuario", subirArchivo(), async (req, res) => {
-  try {
-    const { id, borrar } = req.body;
-    const usuarioAnterior = await buscarPorID(id);
-    const fotoAnterior = usuarioAnterior ? usuarioAnterior.foto : null;
+  console.log("Entra al servidor a /api/editarUsuario");
+  if (req.file!=undefined){
+    req.body.foto=req.file.originalname;
+}
+else{
+    req.body.foto="algo"
+}
 
-    if (req.file) {
-
-      if (fotoAnterior) {
-        await fs.unlink(`./web/images/${fotoAnterior}`);
-      }
-      req.body.foto = req.file.originalname;
-    }
-
-    var error = await modificarUsuario(req.body);
-    if (borrar === "true") {
-      if (fotoAnterior) {
-        await fs.unlink(`./web/images/${fotoAnterior}`);
-      }
-      await borrarUsuario(id);
-    }
-
-    if (error === 0) {
-      res.status(200).json("Usuario actualizado");
-    } else {
-      res.status(400).json("Error al actualizar el usuario");
-    }
-  } catch (error) {
-    console.error('Error al editar la foto o usuario:', error);
-    res.status(500).json("Error al editar la foto o usuario");
-  }
+var error=await modificarUsuario(req.body);
+if(error==0){
+    res.status(200).json("Usuario actualizado");
+}
+else{
+    res.status(400).json("Error al actualizar el usuario");
+}
 });
 
 ruta.get("/api/borrarUsuario/:id", async (req, res) => {

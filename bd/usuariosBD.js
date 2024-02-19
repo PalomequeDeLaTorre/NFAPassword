@@ -108,38 +108,36 @@ async function nuevoUsuario(datos){
 async function modificarUsuario(datos){
     var error=1;
     var respuestaBuscar=await buscarPorID(datos.id);
+    console.log(respuestaBuscar);
     if(respuestaBuscar!=undefined){
-        if(datos.password==""){ 
-            datos.password=datos.passwordViejo; 
-            datos.salt=datos.saltViejo; 
+        if(datos.foto=="algo"){
+            datos.foto=respuestaBuscar.foto;
+        }
+        console.log("------ password ------------");
+        console.log(datos.password);
+        datos.admin=respuestaBuscar.admin;
+        if(datos.password==""){
+            datos.password=datos.passwordViejo;
+            datos.salt=datos.saltViejo;
         }
         else{
-            var {salt, hash}=encriptarPassword(datos.password); 
-            datos.password=hash; 
-            datos.salt=salt; 
+            var {salt, hash}=encriptarPassword(datos.password);
+            datos.password=hash;
+            datos.salt=salt;
         }
-    var user=new Usuario(datos.id,datos)
-
-    if (datos.foto === null) {
-        delete user.obtenerDatos.foto; 
-    }
-
-    if (user.bandera === 0){
-        try{
-            await conexion.doc(user.id).set(user.obtenerDatos);
-            console.log("Usuario actualizado");
-            error=0;
-
-        }
-        catch(err){
-            console.log("Error al modificar el usuario"+err);
-
+        var user=new Usuario(datos.id,datos);
+        if (user.bandera==0){
+            try{
+                await conexion.doc(user.id).set(user.obtenerDatos);
+                console.log("Usuario actualizado ");
+                error=0;
+            }
+            catch(err){
+                console.log("Error al modificar al usuario "+err);
+            }
         }
     }
-
-}
     return error;
-
 }
 
 async function borrarUsuario(id){
