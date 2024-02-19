@@ -119,6 +119,11 @@ async function modificarUsuario(datos){
             datos.salt=salt; 
         }
     var user=new Usuario(datos.id,datos)
+
+    if (datos.foto === null) {
+        delete user.obtenerDatos.foto; 
+    }
+
     if (user.bandera === 0){
         try{
             await conexion.doc(user.id).set(user.obtenerDatos);
