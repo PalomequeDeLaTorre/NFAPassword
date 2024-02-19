@@ -58,7 +58,16 @@ else{
 });
 
 ruta.get("/api/borrarUsuario/:id", async (req, res) => {
-    try {
+  var error=await borrarUsario(req.params.id);
+  if(error==0){
+      res.status(200).json("Usuario borrado");
+  }
+  else{
+      res.status(400).json("Error al borrar el usuario")
+  }
+});
+
+    /*try {
       const user = await buscarPorID(req.params.id);
       if (!user) {
         return res.status(404).json("Usuario no encontrado");
@@ -74,7 +83,7 @@ ruta.get("/api/borrarUsuario/:id", async (req, res) => {
       console.error('Error al borrar la foto o usuario:', error);
       res.status(500).json("Error al borrar la foto o usuario");
     }
-  });
+  });*/
 
 
 

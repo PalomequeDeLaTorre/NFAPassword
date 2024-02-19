@@ -126,7 +126,7 @@ async function modificarUsuario(datos){
             datos.salt=salt;
         }
 
-        
+
         var user=new Usuario(datos.id,datos);
 
 
