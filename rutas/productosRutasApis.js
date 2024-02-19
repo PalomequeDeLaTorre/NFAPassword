@@ -39,33 +39,21 @@ ruta.get("/api/buscarProductosPorId/:id",async(req, res)=>{
 });
 
 ruta.post("/api/editarProductoApi", subirArchivo(), async (req, res) => {
-  try {
-    const { id, borrar } = req.body;
-    const productoAnterior = await buscarProductoPorID(id);
-    const fotoAnterior = productoAnterior ? productoAnterior.foto : null;
-    if (req.file) {
-      if (fotoAnterior) {
-        await fs.unlink(`./web/images/${fotoAnterior}`);
-      }
-      req.body.foto = req.file.originalname;
-    }
-    var error = await modificarProducto(req.body);
-    if (borrar === "true") {
-      if (fotoAnterior) {
-        await fs.unlink(`./web/images/${fotoAnterior}`);
-      }
-      await borrarProducto(id);
-    }
-    
-    if (error === 0) {
-      res.status(200).json("Producto actualizado");
-    } else {
-      res.status(400).json("Error al actualizar el producto");
-    }
-  } catch (error) {
-    console.error('Error al editar la foto o producto:', error);
-    res.status(500).json("Error al editar la foto o producto");
-  }
+  console.log("Entra al servidor a /api/editarProductoApi");
+  if (req.file!=undefined){
+    req.body.foto=req.file.originalname;
+}
+else{
+    req.body.foto="algo"
+}
+
+var error=await modificarProducto(req.body);
+if(error==0){
+    res.status(200).json("Usuario actualizado");
+}
+else{
+    res.status(400).json("Error al actualizar el usuario");
+}
 });
 
 ruta.get("/api/borrarProductoApi/:id", async (req, res) => {
