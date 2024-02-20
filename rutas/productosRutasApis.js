@@ -59,7 +59,7 @@ else{
 ruta.get("/api/borrarProductoApi/:id", async (req, res) => {
   var error=await borrarProducto(req.params.id);
   if(error==0){
-      res.status(200).json("Prodcuto borrado");
+      res.status(200).json("Producto borrado");
   }
   else{
       res.status(400).json("Error al borrar el producto")
