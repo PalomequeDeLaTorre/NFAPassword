@@ -49,7 +49,7 @@ else{
 
 var error=await modificarProducto(req.body);
 if(error==0){
-    res.status(200).json("Usuario actualizado");
+    res.status(200).json("Producto actualizado");
 }
 else{
     res.status(400).json("Error al actualizar el usuario");
